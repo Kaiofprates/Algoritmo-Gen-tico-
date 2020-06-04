@@ -1,0 +1,16 @@
+{
+  "name": "Caixeiro",
+  "version": "1.0.0",
+  "description": "Algoritmo genético que resolve o problema do caixeiro-viajante",
+  "main": "index.js",
+  "author": "Kaio F Prates",
+  "license": "MIT",
+  "private": false,
+  "scripts": {
+    "test": "jest",
+    "start" : "node index.js"
+  },
+  "devDependencies": {
+    "jest": "^26.0.1"
+  }
+}
