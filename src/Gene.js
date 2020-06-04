@@ -1,3 +1,6 @@
+const Rand  = require('./randomGene')
+
+
 module.exports = class Gene{
 
     constructor(distance){
@@ -30,6 +33,17 @@ module.exports = class Gene{
         gene, 
         total: dis
     }
+   }
+/**
+ * generate the first geration of individuals 
+ */
+   setGen(n){
+       let population  = [];
+       for(let i = 0; i < n; i++){
+         let r = Rand();
+         population.push(r)
+       }
+       return population
    }
 
 }

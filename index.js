@@ -16,6 +16,8 @@ const distance = [
 
 const gene  = new Gene(distance);
 
-console.log(gene.sumPath(Rand()))
+//console.log(gene.sumPath(Rand()))
 
+
+console.log(gene.setGen(2)); 
 
