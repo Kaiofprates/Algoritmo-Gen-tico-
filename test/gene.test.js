@@ -1,5 +1,5 @@
 const Rand  = require('../src/randomGene');
-const Gene = require('../src/distance');
+const Gene = require('../src/Gene');
 
 const distance = [
     [0],
