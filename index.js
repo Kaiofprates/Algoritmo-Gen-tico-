@@ -1,6 +1,9 @@
 const Rand  = require('./src/randomGene');
 const Gene  = require('./src/Gene');
 
+const Select  = require('./seleção/Select');
+
+
 const distance = [
 [0],
 [20,0],
@@ -9,9 +12,9 @@ const distance = [
 [300, 130, 20, 40, 0],
 [120, 700, 37, 500, 20, 0],
 [245, 300, 290, 120, 300, 45, 0], 
-[30, 120, 300, 30, 40, 90, 340, 0],
-[50, 230, 130, 50, 90, 30, 20, 200, 0],
-[120, 200, 200, 440, 500, 60, 70, 300, 120]
+[30, 120, 300, 30, 40, 90, 40, 0],
+[50, 230, 130, 50, 90, 30, 20, 20, 0],
+[120, 200, 200, 440, 500, 60, 70, 300, 12]
 ];
 
 const gene  = new Gene(distance);
@@ -19,5 +22,8 @@ const gene  = new Gene(distance);
 //console.log(gene.sumPath(Rand()))
 
 
-console.log(gene.setGen(2)); 
+let population  = gene.setGen(20);
 
+let feling = population.map((e) => gene.sumPath(e).total)
+
+console.log(Select(population,feling));

@@ -22,14 +22,15 @@
  // um é consequentemente Object.values( população.total )
 
 module.exports = function( population , sum ){
-
+    console.log(population.length)
     let t  = sum.reduce((a,b) => a + b)
     let select  = []
     for( let i  = 0; i < population.length; i++ ){
-        let r = Math.floor(Math.random() * 0 + t)
-        let s  = population[i].total; 
+        let r = Math.floor(Math.random() * t + 0)
+        let s  = sum[i]; 
+        console.log(population[i] + '------' + s )
         if( s >= r ){
-            select.push(population[i].gene)
+            select.push(population[i] + ' ------ ' + s )
         }
     }
 
