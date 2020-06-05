@@ -2,7 +2,7 @@ const Rand  = require('./src/randomGene');
 const Gene  = require('./src/Gene');
 
 const Select  = require('./seleção/Select');
-
+const Torneio  = require('./Torneio/Torneio')
 
 const distance = [
 [0],
@@ -24,6 +24,7 @@ const gene  = new Gene(distance);
 
 let population  = gene.setGen(20);
 
-let feling = population.map((e) => gene.sumPath(e).total)
+let fitnes = population.map((e) => gene.sumPath(e).total)
 
-console.log(Select(population,feling));
+//console.log(Select(population,feling));
+console.log(Torneio(population,fitnes, 2))
