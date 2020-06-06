@@ -4,6 +4,9 @@ const Gene  = require('./src/Gene');
 const Select  = require('./seleção/Select');
 const Torneio  = require('./Torneio/Torneio')
 
+const Reproduction = require('./Reproduction/Reproduction')
+
+
 const distance = [
 [0],
 [20,0],
@@ -27,4 +30,6 @@ let population  = gene.setGen(20);
 let fitnes = population.map((e) => gene.sumPath(e).total)
 
 //console.log(Select(population,fitnes));
-console.log(Torneio(population,fitnes, 2))
+let champions = Torneio(population,fitnes,2)
+
+console.log(Reproduction(champions[0], champions[1]))
