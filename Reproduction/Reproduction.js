@@ -91,6 +91,7 @@ function motherGens(father, mother){
 
 
  module.exports = function(father, mother){
+    console.log(father +'----' + mother)
    let rand  =  selectRandom(4)
    let initial = {
        father, 

@@ -32,4 +32,4 @@ let fitnes = population.map((e) => gene.sumPath(e).total)
 //console.log(Select(population,fitnes));
 let champions = Torneio(population,fitnes,2)
 
-console.log(Reproduction(champions[0], champions[1]))
+if(champions[0] && champions[1]) console.log(Reproduction(champions[0], champions[1]))

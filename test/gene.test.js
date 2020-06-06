@@ -25,7 +25,7 @@ function testRand(){
 
 
 test('Test randomic function', () => {
-    expect(testRand()).toBe(9);
+    expect(testRand()).toBe(10);
   });
 
 test('Test Gene Class - Get Distance', () => {
