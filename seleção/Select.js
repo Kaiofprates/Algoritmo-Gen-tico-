@@ -21,18 +21,22 @@
  // espera receber um objeto população com o elemento total, 
  // um é consequentemente Object.values( população.total )
 
-module.exports = function( population , sum ){
-    console.log(population.length)
+function Roleta( population , sum ){
     let t  = sum.reduce((a,b) => a + b)
     let select  = []
     for( let i  = 0; i < population.length; i++ ){
         let r = Math.floor(Math.random() * t + 0)
         let s  = sum[i]; 
-        console.log(population[i] + '------' + s )
         if( s >= r ){
-            select.push(population[i] + ' ------ ' + s )
+            select.push(population[i])
+            return select
         }
     }
-
-    return select; 
+    if(select.length != 1 || !select[0] ){
+        Roleta(population,sum)
+    }else{
+        return select; 
+    }
 }
+
+module.exports = Roleta

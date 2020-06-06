@@ -1,5 +1,7 @@
 const Rand  = require('../src/randomGene');
 const Gene = require('../src/Gene');
+const Torneio  = require('../Torneio/Torneio');
+const Roleta  = require('../seleção/Select');
 
 const distance = [
     [0],
@@ -8,11 +10,18 @@ const distance = [
 ]
 
 let gene = new Gene(distance);
+let population  = gene.setGen(20);
+let fitnes  = [ 90, 100, 110, 120 ]
+
 
 function testRand(){
     let setRand = new Set(Rand())
     return setRand.size
 }
+
+/**
+ *  funções de  seleção: torneio e roleta
+ */
 
 
 test('Test randomic function', () => {
@@ -27,3 +36,20 @@ test('Test Gene Class - Get Path', () => {
     let {total} = gene.sumPath([0,1,2])
     expect(total).toBe(50);
   });
+
+test('Test Selection with Roleta', () => {
+
+  let select  = Roleta(population,fitnes);
+  
+  if( select ){
+    expect(select.length).toBe(1)
+  } else{
+    expect(select).toBe(undefined)
+  }
+
+})  
+
+test('Test Selecion with Torneio', ()=>{
+  let select  = Torneio(population,fitnes,2);
+  expect(select.length).toBe(2)
+})

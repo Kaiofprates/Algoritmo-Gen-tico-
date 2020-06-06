@@ -26,5 +26,5 @@ let population  = gene.setGen(20);
 
 let fitnes = population.map((e) => gene.sumPath(e).total)
 
-//console.log(Select(population,feling));
+//console.log(Select(population,fitnes));
 console.log(Torneio(population,fitnes, 2))
