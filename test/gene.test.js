@@ -2,6 +2,7 @@ const Rand  = require('../src/randomGene');
 const Gene = require('../src/Gene');
 const Torneio  = require('../Torneio/Torneio');
 const Roleta  = require('../seleção/Select');
+const Reproduction = require('../Reproduction/Reproduction')
 
 const distance = [
     [0],
@@ -52,4 +53,10 @@ test('Test Selection with Roleta', () => {
 test('Test Selecion with Torneio', ()=>{
   let select  = Torneio(population,fitnes,2);
   expect(select.length).toBe(2)
+})
+
+
+test('Test generation of new Child', ()=>{
+  let { child }   = Reproduction([4,1,2,7,9,3,8,0,6,5],[4,1,2,7,9,3,8,0,6,5]);
+  expect(child).toStrictEqual([4,1,2,7,9,3,8,0,6,5])
 })

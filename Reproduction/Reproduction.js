@@ -55,16 +55,12 @@ function motherGens(father, mother){
  * Geração de novo individuo
  */
 
- function makeChild(rand, father, mother){
+function makeChild(rand, father, mother){
 
-    // a  = mother
-    // b = father
-    // c = rand
-    // variável provisória para fatiamento dos genes da mae  
     let aux = [];
 
     mother.forEach((e,i,a)=>{
-        if(rand.indexOf(i) > -1){
+        if(father.indexOf(e) > -1 ){
         aux.push(NaN)
         }else{
         aux.push(e)
@@ -74,11 +70,12 @@ function motherGens(father, mother){
     let res = []
 
 
-    for( let i = 0; i < 9; i++){
+    for( let i = 0; i <= 9; i++){
         if(!isNaN(father[i])){
             res.push(father[i])
-        }else{
-            res.push(aux[i])
+        }
+        if(!isNaN(aux[i])){
+           res.push(aux[i])
         }
     }
 
@@ -91,20 +88,9 @@ function motherGens(father, mother){
 
 
  module.exports = function(father, mother){
-    console.log(father +'----' + mother)
    let rand  =  selectRandom(4)
-   let initial = {
-       father, 
-       mother, 
-       rand
-   }
    father = fatherGens(rand, father)
    mother =  makeChild(rand,father,mother).m
    result =  makeChild(rand,father,mother).ind
-   return {
-       initial,
-       father, 
-       mother,
-       result
-   }
+   return { child : result}
  }
