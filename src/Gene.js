@@ -46,4 +46,8 @@ module.exports = class Gene{
        return population
    }
 
+   toChar(n){
+    return n.map((e) => String.fromCharCode(e + 65) ).join() ; 
+   }
+
 }
