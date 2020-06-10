@@ -92,5 +92,5 @@ function makeChild(rand, father, mother){
    father = fatherGens(rand, father)
    mother =  makeChild(rand,father,mother).m
    result =  makeChild(rand,father,mother).ind
-   return { child : result}
+   return result
  }

@@ -10,46 +10,71 @@ const Mutation  = require('./Mutation/mutation')
 
 const distance = [
 [0],
-[20,0],
-[50, 30, 0],
-[45, 26, 30, 0],
-[300, 130, 20, 40, 0],
-[120, 700, 37, 500, 20, 0],
-[245, 300, 290, 120, 300, 45, 0], 
-[30, 120, 300, 30, 40, 90, 40, 0],
-[50, 230, 130, 50, 90, 30, 20, 20, 0],
-[120, 200, 200, 440, 500, 60, 70, 300, 12, 0]
+[1,0],
+[50, 1, 0],
+[45, 26, 1, 0],
+[300, 130, 20, 1, 0],
+[120, 700, 37, 500, 1, 0],
+[245, 300, 290, 120, 300, 1, 0], 
+[30, 120, 300, 30, 40, 90, 1, 0],
+[50, 230, 130, 50, 90, 30, 20, 1, 0],
+[120, 200, 200, 440, 500, 60, 70, 300, 1, 0]
 ];
 
 const gene  = new Gene(distance);
 
 //console.log(gene.sumPath(Rand()))
 
+const ind  = 80 
+const taxa  = 30
+const generation  = 5
 
-let population  = gene.setGen(5);
+let population  = gene.setGen(ind);
 
-let fitnes = population.map((e) => gene.sumPath(e).total)
-console.log(population)
-console.log( Mutation(population, 5))
+function newGeneration(p){
+let pop  = [];
+let fitnes = p.map((e) => gene.sumPath(e).total)
+
+while(pop.length !== ind){
+    let champions = Torneio(population,fitnes,5)
+    const validate  = champions[0] && champions[1]
+    if(validate){
+        pop.push(Reproduction(champions[0], champions[1]))
+    }
+}
+return Mutation(pop, taxa)
+}
+
+function nextGeneration(p){
+    let pop = [];
+    let fitnes = p.map((e) => gene.sumPath(e).total)
+
+    while(pop.length !== 40){
+        let champions = Select(population,fitnes)
+        if(champions){
+            pop.push(champions)
+        }
+    }
+    return Mutation(pop, taxa)
+}
 
 
+function show (e){
+    if( gene.sumPath(e).total <= 9 ){
+        return console.log(`${gene.toChar(e)} --------------------------------------------------------------- individuo encontrado!`)
+    } else{
+        console.log(`
+        ${gene.toChar(e)} ------ ${gene.sumPath(e).total}
+        `)
+    }
+    
+}
 
 
-// console.log(`
-// ------------------------------escolhidos pelo metodo de Torneiro--------------------------------
-// `)
-// let champions = Torneio(population,fitnes,2)
-// const validate  = champions[0] && champions[1]
-
-// if(validate) console.log(`
-// pai ----- ${gene.toChar(champions[0])}
-// mae ----- ${gene.toChar(champions[1])}
-// `)
-
-// console.log(`
-// ------------------------------Novo indivíduo ---------------------------------------------------
-// `)
-
-// if(validate) console.log(gene.toChar(Reproduction(champions[0], champions[1]).child))
-
-// //console.log(gene.toChar())
+function runModel(){
+  for( let i  = 0; i < generation  ; i ++ ){
+      population.map(show);
+      population = newGeneration(population) 
+  }
+}
+runModel()
