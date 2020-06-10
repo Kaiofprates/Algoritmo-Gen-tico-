@@ -1,0 +1,11 @@
+08 - população inicial e o cálculo do grau de aptdão
+
+16 - semana de provas - Algoritmos Bioinspirados
+
+18 - semana de provas - Algoritmos Bioinpirados
+
+23 - seleção, reprodução e mutação
+
+25 - finalização ( interação com o usuário ) 
+
+30 - avaliação
