@@ -19,3 +19,6 @@ Avaliação: este trabalho valerá 20 pontos e deverá ser feito individualmente
 Observações: 
 - Será enviado um modelo de algoritmo genético para servir de guia.
 - Desde que siga os requisitos, qualquer linguagem de programação poderá ser utilizada.
+
+# Algoritmo final 
+<img src="./public/example.gif" />

@@ -1,7 +1,5 @@
-const Rand  = require('./src/randomGene');
 const Gene  = require('./src/Gene');
 
-const Select  = require('./seleção/Select');
 const Torneio  = require('./Torneio/Torneio')
 
 const Reproduction = require('./Reproduction/Reproduction')
@@ -25,9 +23,9 @@ const gene  = new Gene(distance);
 
 //console.log(gene.sumPath(Rand()))
 
-const ind  = 80 
-const taxa  = 30
-const generation  = 5
+let ind  = 80 
+let  taxa  = 30
+let generation  = 5
 
 let population  = gene.setGen(ind);
 
@@ -43,19 +41,6 @@ while(pop.length !== ind){
     }
 }
 return Mutation(pop, taxa)
-}
-
-function nextGeneration(p){
-    let pop = [];
-    let fitnes = p.map((e) => gene.sumPath(e).total)
-
-    while(pop.length !== 40){
-        let champions = Select(population,fitnes)
-        if(champions){
-            pop.push(champions)
-        }
-    }
-    return Mutation(pop, taxa)
 }
 
 
@@ -77,4 +62,6 @@ function runModel(){
       population = newGeneration(population) 
   }
 }
-runModel()
+//runModel()
+let but  = document.getElementsByTagName('input') 
+but[0].addEventListener('click', (e) => { alert('eita') }, false) 

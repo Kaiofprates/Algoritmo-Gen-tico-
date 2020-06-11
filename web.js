@@ -1,4 +1,25 @@
 (function(){function r(e,n,t){function o(i,f){if(!n[i]){if(!e[i]){var c="function"==typeof require&&require;if(!f&&c)return c(i,!0);if(u)return u(i,!0);var a=new Error("Cannot find module '"+i+"'");throw a.code="MODULE_NOT_FOUND",a}var p=n[i]={exports:{}};e[i][0].call(p.exports,function(r){var n=e[i][1][r];return o(n||r)},p,p.exports,r,e,n,t)}return n[i].exports}for(var u="function"==typeof require&&require,i=0;i<t.length;i++)o(t[i]);return o}return r})()({1:[function(require,module,exports){
+module.exports = function(population, n){
+    console.log('-------------------------------------------------------  Mutação')  
+
+    let newPop  = population.map((e) => {
+        let gene  = Math.floor(Math.random() * 10 + 0)
+        let sort  = Math.floor(Math.random() * 100 + 0)
+
+        if(sort <= n + 10){
+            let b = e.splice( 0 , gene).sort()
+            let a  = e.splice( 0, e.length)
+            let c = [...a, ...b]
+            return c 
+        }else{
+            return e
+        }
+
+    })
+   
+    return newPop
+}
+},{}],2:[function(require,module,exports){
 /**
  * 
  * [  [ 4, 2, 0, 6, 3, 5, 1, 8, 7],
@@ -93,9 +114,9 @@ function makeChild(rand, father, mother){
    father = fatherGens(rand, father)
    mother =  makeChild(rand,father,mother).m
    result =  makeChild(rand,father,mother).ind
-   return { child : result}
+   return result
  }
-},{}],2:[function(require,module,exports){
+},{}],3:[function(require,module,exports){
 /**
  * Método de Seleção por torneio 
  * Inicio
@@ -149,60 +170,76 @@ module.exports = function(population, sum, n){
 
 
 }
-},{}],3:[function(require,module,exports){
-const Gene  = require('../src/Gene');
+},{}],4:[function(require,module,exports){
+const Gene  = require('./src/Gene');
 
-const Torneio  = require('../Torneio/Torneio')
+const Torneio  = require('./Torneio/Torneio')
 
-const Reproduction = require('../Reproduction/Reproduction')
+const Reproduction = require('./Reproduction/Reproduction')
 
+const Mutation  = require('./Mutation/mutation')
 
 const distance = [
 [0],
-[20,0],
-[50, 30, 0],
-[45, 26, 30, 0],
-[300, 130, 20, 40, 0],
-[120, 700, 37, 500, 20, 0],
-[245, 300, 290, 120, 300, 45, 0], 
-[30, 120, 300, 30, 40, 90, 40, 0],
-[50, 230, 130, 50, 90, 30, 20, 20, 0],
-[120, 200, 200, 440, 500, 60, 70, 300, 12]
+[1,0],
+[50, 1, 0],
+[45, 26, 1, 0],
+[300, 130, 20, 1, 0],
+[120, 700, 37, 500, 1, 0],
+[245, 300, 290, 120, 300, 1, 0], 
+[30, 120, 300, 30, 40, 90, 1, 0],
+[50, 230, 130, 50, 90, 30, 20, 1, 0],
+[120, 200, 200, 440, 500, 60, 70, 300, 1, 0]
 ];
 
 const gene  = new Gene(distance);
 
+//console.log(gene.sumPath(Rand()))
 
-let population  = gene.setGen(20);
+let ind  = 80 
+let  taxa  = 30
+let generation  = 5
 
-let fitnes = population.map((e) => gene.sumPath(e).total)
+let population  = gene.setGen(ind);
 
-let champions = Torneio(population,fitnes,2)
+function newGeneration(p){
+let pop  = [];
+let fitnes = p.map((e) => gene.sumPath(e).total)
 
-
-function setup() {
-  createCanvas(400, 400);
+while(pop.length !== ind){
+    let champions = Torneio(population,fitnes,5)
+    const validate  = champions[0] && champions[1]
+    if(validate){
+        pop.push(Reproduction(champions[0], champions[1]))
+    }
+}
+return Mutation(pop, taxa)
 }
 
-function draw() {
-  background('#212732');
-  translate(50,200)
-  frameRate(6); 
-              
-  if(champions[0] && champions[1]) cities  = (Reproduction(champions[0], champions[1]))
 
-  for(let i = 0; i <= 9; i++){
-   fill(cities[i] * 3, cities[i] * 28, 225) 
-   
-    ellipse(i * 33,cities[i] * 10, 25)
-   textSize(30)
-   let cit  = String.fromCharCode(cities[i] + 65); 
-   text(cit, i * 35, -40) ;
+function show (e){
+    if( gene.sumPath(e).total <= 9 ){
+        return console.log(`${gene.toChar(e)} --------------------------------------------------------------- individuo encontrado!`)
+    } else{
+        console.log(`
+        ${gene.toChar(e)} ------ ${gene.sumPath(e).total}
+        `)
+    }
+    
+}
+
+
+function runModel(){
+  for( let i  = 0; i < generation  ; i ++ ){
+      population.map(show);
+      population = newGeneration(population) 
   }
-  
 }
+//runModel()
+let but  = document.getElementsByTagName('input') 
+but[0].addEventListener('click', (e) => { alert('eita') }, false) 
 
-},{"../Reproduction/Reproduction":1,"../Torneio/Torneio":2,"../src/Gene":4}],4:[function(require,module,exports){
+},{"./Mutation/mutation":1,"./Reproduction/Reproduction":2,"./Torneio/Torneio":3,"./src/Gene":5}],5:[function(require,module,exports){
 const Rand  = require('./randomGene')
 
 
@@ -251,8 +288,12 @@ module.exports = class Gene{
        return population
    }
 
+   toChar(n){
+    return n.map((e) => String.fromCharCode(e + 65) ).join() ; 
+   }
+
 }
-},{"./randomGene":5}],5:[function(require,module,exports){
+},{"./randomGene":6}],6:[function(require,module,exports){
 module.exports = function(){
     let res = [];
 
@@ -269,4 +310,4 @@ module.exports = function(){
 
     
     
-},{}]},{},[3]);
+},{}]},{},[4]);
