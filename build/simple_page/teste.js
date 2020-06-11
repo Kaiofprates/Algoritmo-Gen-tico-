@@ -1,5 +1,5 @@
-let but  = document.getElementsByTagName('input') 
-but[0].addEventListener('click', (e) => { runModel() }, false) 
+let but  = document.getElementById('run') 
+but.addEventListener('click', (e) => { runModel() }, false) 
 
 
 let text  = document.getElementsByClassName('result')
@@ -190,7 +190,6 @@ function makeChild(rand, father, mother){
 
     let res = []
 
-
     for( let i = 0; i <= 9; i++){
         if(!isNaN(father[i])){
             res.push(father[i])
@@ -231,14 +230,21 @@ const distance = [
     
     const gene  = new Gene(distance);
     
-    //console.log(gene.sumPath(Rand()))
+    // //console.log(gene.sumPath(Rand()))
+    // let pop = document.getElementById('population')
+    // pop.value = 20
     
-    let ind  = 80 
-    let  taxa  = 30
-    let generation  = 5
-    
-    let population  = gene.setGen(ind);
-    
+    // let t  = document.getElementById('mutation')
+    // t.value  = 40
+
+    // let g = document.getElementById('generation')
+    // g.value  = 5
+
+    let ind  = 20 ;  
+    let taxa  = 6 ;
+    let generation = 10 ;
+    let population = gene.setGen(ind) 
+
     function newGeneration(p){
     let pop  = [];
     let fitnes = p.map((e) => gene.sumPath(e).total)
@@ -258,7 +264,6 @@ const distance = [
         let lista  = document.getElementsByTagName('ul')
         let li  = document.createElement('li') 
 
-
         if( gene.sumPath(e).total <= 9 ){
             li.className  = "list-group-item active"
             li.innerText = `${gene.toChar(e)} individuo encontrado!`
@@ -268,15 +273,15 @@ const distance = [
             li.className  = "list-group-item disabled"
              li.innerText = ` \n  ${gene.toChar(e)} --------   ${gene.sumPath(e).total} `
              lista[0].appendChild(li)
-        }
-        
+        }    
     }
     
-
     
     function runModel(){
-      for( let i  = 0; i < generation  ; i ++ ){
+
+      for( let i  = 0; i < 20  ; i ++ ){
           population.map(show);
           population = newGeneration(population);
       }
     }
+
